@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const sequelize = require('./db');
-//const Section = require('./section');
+const Section = require('./section');
 
 // Define the schema of subjects table
 const Subjects = sequelize.define('subject', {
@@ -30,6 +30,6 @@ const Subjects = sequelize.define('subject', {
     timestamps: false
 });
 
-//Subjects.hasMany(Section);
+Subjects.hasMany(Section);
 
 module.exports = Subjects;
