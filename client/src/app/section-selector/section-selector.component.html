@@ -5,7 +5,9 @@
 <h5>{{subjectId}}</h5>
 
 <h5 class="px-3">
-  <a href="#" class="badge badge-primary w-100 text-right">
+  <a href="#" class="badge badge-primary w-100 text-right"
+     (click)="dismissSection($event, item)"
+     *ngFor="let item of selected">
       <span class="float-left ml-1">
         {{item.type}}
       </span>
@@ -18,31 +20,39 @@
   </a>
 </h5>
 
-<div class="ap-selector-list btn-group-vertical btn-group-sm w-100 mt-3 px-0"role="group">
+<div class="ap-selector-list btn-group-vertical btn-group-sm w-100 mt-3 px-0"
+     role="group" #sectionsContainer>
   <button type="button"
-          class="ap-btn btn btn-light btn-block text-right">
+          class="ap-btn btn btn-light btn-block text-right {{item.clash? 'disabled clash': ''}}"
+          *ngFor="let item of sections | filter: filter"
+          (click)="selectSection(item)"
+          [class]="">
     <span class="float-left ml-1 font-weight-bold">
-      Item type
+      {{item.type}}
     </span>
-    <span class="badge badge-danger mr-1">
+    <span class="badge badge-danger mr-1"
+          *ngIf="item.clash">
       clash
     </span>
     <span class="badge badge-light mr-1">
-      Item day
+      {{item.day}}
     </span>
     <span class="badge badge-light mr-1">
-      Item duration
+      {{item.startTime}} - {{item.endTime}}
     </span>
   </button>
 </div>
 
 <div class="w-100 mt-5">
   <button type="button"
-          class="ap-add-btn btn btn-sm btn-primary btn-block">
-    Update Items
+          class="ap-add-btn btn btn-sm btn-primary btn-block"
+          *ngIf="sectionsContainer.children.length == 0"
+          (click)="updateSections()">
+    {{editing ? 'Update Sections' : 'Add Sections'}}
   </button>
   <button type="button"
-          class="ap-add-btn btn btn-sm btn-outline-primary btn-block">
-    Delete Sections
+          class="ap-add-btn btn btn-sm btn-outline-primary btn-block"
+          *ngIf="(sectionsContainer.children.length == 0) && editing"
+          (click)="deleteSections()">Delete Sections
   </button>
 </div>

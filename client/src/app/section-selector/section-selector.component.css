@@ -1,0 +1,30 @@
+.ap-selector {
+  position: relative;
+  padding: 1rem 15px;
+  margin-right: -15px;
+  margin-left: -15px;
+  border-bottom: 1px solid rgba(0,0,0,.05);
+}
+.ap-btn {
+  background-color: transparent;
+  border-color: transparent;
+  border-radius: unset;
+}
+.ap-btn:hover {
+  background-color: #e2e6ea;
+  border-color: #dae0e5;
+}
+.clash:hover {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+@media (min-width: 768px) {
+  .ap-selector-list {
+    max-height: calc(100vh - 12rem);
+    overflow-y: auto;
+  }
+  .ap-selector-list {
+    display: block!important;
+  }
+}
