@@ -1,24 +1,27 @@
 <h5 class="ap-timetable">Timetable</h5>
 <div class="row mx-0">
-  <div class="col-2 px-1">
-    <h6 class="text-center border-bottom border-success pb-2">Day</h6>
+  <div class="col-2 px-1"
+       *ngFor="let day of DAYS">
+    <h6 class="text-center border-bottom border-success pb-2">{{day}}</h6>
 
-    <div class="card mb-2">
+    <div class="card mb-2"
+         *ngFor="let item of ttSections | dayFilter: day | timeSort">
       <div class="card-body p-1 pb-2">
 
         <button
           type="button"
-          class="btn btn-sm btn-block btn-primary text-right">
-          <span class="float-left">Subject Id</span>
+          class="btn btn-sm btn-block btn-primary text-right"
+          (click)="editSection(item.subjectId)">
+          <span class="float-left">{{item.subjectId}}</span>
           <span class="badge badge-light">Edit</span>
         </button>
 
         <p class="card-text mt-2">
           <small class="badge badge-pill badge-light mr-1">
-            Type
+            {{item.type}}
           </small>
           <small class="badge badge-pill badge-light">
-            Duration
+            {{item.startTime}} - {{item.endTime}}
           </small>
         </p>
 
