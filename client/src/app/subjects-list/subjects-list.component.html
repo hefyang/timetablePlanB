@@ -2,10 +2,13 @@
 <form id="search-bar" class="ap-search">
   <input type="text"
          class="form-control"
-         placeholder="Search subject" >
+         placeholder="Search subject"
+         [(ngModel)]="searchText"
+         [ngModelOptions]="{standalone: true}" >
 </form>
 
-<div class="ap-hint bg-light">
+<div class="ap-hint bg-light"
+     *ngIf="subjectCount > 3">
   <small>
     <strong>Hint:</strong>
     <mark>The number of subjects you enrolled should be thoughtful.</mark>
@@ -13,7 +16,9 @@
 </div>
 
 <div id="subject-list" class="ap-links list-group-flush list-group">
-  <a class="list-group-item list-group-item-action flex-column align-items-start">
+  <a class="list-group-item list-group-item-action flex-column align-items-start"
+     [routerLink]="['/description', item.id]"
+     *ngFor="let item of subjects | search: searchText">
 
     <div class="row">
       <div class="col">
@@ -25,7 +30,9 @@
 
       <button
         type="button"
-        class="ap-btn btn btn-light col-2">
+        class="ap-btn btn btn-light col-2"
+        *ngIf="isLoggedIn"
+        (click)="enroll($event, item.id)">
         <span class="fa fa-plus"></span>
       </button>
     </div>
