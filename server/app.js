@@ -5,6 +5,9 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
+const register = require("./routes/api/register");
+const checkIfAuthenticated = require("./middleware/checkIfAuthenticated").checkIfAuthenticated;
+
 const app = express();
 
 // view engine setup
@@ -24,7 +27,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // ROUTES
-app.get('/api/users', register.users);
+app.get('/api/users', checkIfAuthenticated, register.users);
 app.post('/api/user', register.user);
 app.post('/api/register', register.register);
 app.get('/api/confirmation/:token', register.confirm);
