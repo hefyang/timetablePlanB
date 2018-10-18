@@ -1,0 +1,25 @@
+.ap-sidebar {
+  -ms-flex-order: 0;
+  order: 0;
+  border-bottom: 1px solid rgba(0,0,0,.1);
+}
+
+@media (min-width: 1200px) {
+  .ap-sidebar {
+    -ms-flex: 0 1 320px;
+    flex: 0 1 320px;
+  }
+}
+
+@media (min-width: 768px) {
+  .ap-sidebar {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 4rem;
+    z-index: 1000;
+    height: calc(100vh - 4rem);
+  }
+  .ap-sidebar {
+    border-right: 1px solid rgba(0,0,0,.1);
+  }
+}

@@ -36,7 +36,7 @@ exports.register = (req, res) => {
         id: student.id
     }, EMAIL_SECRET, {
         algorithm: "HS256",
-        expiresIn: "300"
+        expiresIn: "1d"
     }, (err, emailToken) => {
         const url = `http://${HOST_AND_PORT}/api/confirmation/${emailToken}`;
 
