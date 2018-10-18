@@ -24,6 +24,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // ROUTES
+app.get('/api/users', register.users);
+app.post('/api/user', register.user);
+app.post('/api/register', register.register);
+app.get('/api/confirmation/:token', register.confirm);
+app.post('/api/login', register.login);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
