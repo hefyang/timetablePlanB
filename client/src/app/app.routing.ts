@@ -5,16 +5,18 @@ import {DescriptionComponent} from "./description/description.component";
 import {TimetableComponent} from "./timetable/timetable.component";
 import {SubjectsListComponent} from "./subjects-list/subjects-list.component";
 import {SectionSelectorComponent} from "./section-selector/section-selector.component";
+import {LoginGuard} from "./_guards/login.guard";
+import {LogoutGuard} from "./_guards/logout.guard";
 
 const routes: Routes = [
   {path: '', redirectTo: 'timetable', pathMatch: 'full'},
   {path: '', component: SubjectsListComponent, outlet: 'sidebar', runGuardsAndResolvers: 'always'},
   {path: 'timetable', component: TimetableComponent},
   {path: 'description/:id', component: DescriptionComponent},
-  {path: 'selector/:id', component: SectionSelectorComponent, outlet: 'sidebar'},
+  {path: 'selector/:id', component: SectionSelectorComponent, outlet: 'sidebar', canActivate: [LoginGuard]},
 
-  {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegisterComponent},
+  {path: 'login', component: LoginComponent, canActivate: [LogoutGuard]},
+  {path: 'register', component: RegisterComponent, canActivate: [LogoutGuard]},
   {path: '**', redirectTo: 'timetable', pathMatch: 'full'}
 ];
 
