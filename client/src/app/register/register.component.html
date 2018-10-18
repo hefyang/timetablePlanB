@@ -1,15 +1,18 @@
 <div class="card mx-auto m-5" style="width: 320px">
   <h5 class="card-header">SIGN UP</h5>
 
-  <div class="card-body">
+  <div class="card-body"
+       *ngIf="submitted">
     <div class="alert alert-success" role="alert">
       <small>Confirmation email sent, check your email to confirm.</small>
     </div>
   </div>
 
-  <div class="card-body">
+  <div class="card-body"
+       *ngIf="!submitted">
 
-    <form>
+    <form [formGroup]="formModel"
+          (ngSubmit)="onSubmit()">
 
       <div class="form-group">
         <label for="studentId" class="sr-only">Student ID</label>
@@ -17,15 +20,27 @@
                id="studentId"
                class="form-control"
                name="studentId"
-               placeholder="Student ID">
+               placeholder="Student ID"
+               formControlName="studentId"
+               autofocus>
         <!--(keyup)="onChange()"-->
-        <small class="form-text text-danger">
+        <small class="form-text text-danger"
+               [hidden]="
+              !formModel.hasError('pattern', ['studentId']) ||
+              !(formModel.get('studentId').touched && formModel.get('studentId').dirty)">
           Your ID should have 8 digits.
         </small>
-        <small class="form-text text-danger">
+        <small class="form-text text-danger"
+               [hidden]="
+              !formModel.hasError('exist', ['studentId']) ||
+              !(formModel.get('studentId').touched && formModel.get('studentId').dirty)">
           Your ID has already used.
         </small>
-        <small class="form-text text-danger">
+        <small class="form-text text-danger"
+               [hidden]="
+             !formModel.hasError('required', ['studentId']) ||
+             !(formModel.get('studentId').dirty && formModel.get('studentId').touched) &&
+             !clicked">
           This field is required.
         </small>
       </div>
@@ -35,27 +50,43 @@
                id="email"
                class="form-control"
                name="email"
-               placeholder="Student email">
-        <small class="form-text text-danger">
+               placeholder="Student email"
+               formControlName="email">
+        <small class="form-text text-danger"
+               [hidden]="
+              !formModel.hasError('pattern', ['email']) ||
+              !(formModel.get('email').touched && formModel.get('email').dirty)">
           The email address you entered is invalid.
         </small>
-        <small class="form-text text-danger">
+        <small class="form-text text-danger"
+               [hidden]="
+             !formModel.hasError('required', ['email']) ||
+             !(formModel.get('email').dirty && formModel.get('email').touched) &&
+             !clicked">
           This field is required.
         </small>
       </div>
 
-      <div>
+      <div formGroupName="passwordsGroup">
         <div class="form-group">
           <label for="password" class="sr-only">Password</label>
           <input type="password"
                  id="password"
                  class="form-control"
                  name="password"
-                 placeholder="Password">
-          <small class="form-text text-danger">
+                 placeholder="Password"
+                 formControlName="password">
+          <small class="form-text text-danger"
+                 [hidden]="
+             !formModel.hasError('minlength', ['passwordsGroup', 'password']) ||
+             !(formModel.get('passwordsGroup.password').dirty && formModel.get('passwordsGroup.password').touched)">
             The password should contain 8 characters.
           </small>
-          <small class="form-text text-danger">
+          <small class="form-text text-danger"
+                 [hidden]="
+             !formModel.hasError('required', ['passwordsGroup', 'password']) ||
+             !(formModel.get('passwordsGroup.password').dirty && formModel.get('passwordsGroup.password').touched) &&
+             !clicked">
             This field is required.
           </small>
         </div>
@@ -65,11 +96,19 @@
                  id="confirmPW"
                  class="form-control"
                  name="confirmPW"
-                 placeholder="Confirm password">
-          <small class="form-text text-danger">
+                 placeholder="Confirm password"
+                 formControlName="confirmPW">
+          <small class="form-text text-danger"
+                 [hidden]="
+             !formModel.hasError('equal', ['passwordsGroup']) ||
+             !(formModel.get('passwordsGroup.confirmPW').dirty && formModel.get('passwordsGroup.confirmPW').touched)">
             The password you entered is not identical.
           </small>
-          <small class="form-text text-danger"">
+          <small class="form-text text-danger"
+                 [hidden]="
+             !formModel.hasError('required', ['passwordsGroup', 'confirmPW']) ||
+             !(formModel.get('passwordsGroup.confirmPW').dirty && formModel.get('passwordsGroup.confirmPW').touched) &&
+             !clicked">
             This field is required.
           </small>
         </div>
