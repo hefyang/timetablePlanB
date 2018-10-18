@@ -1,21 +1,21 @@
 <nav class="navbar navbar-expand navbar-dark flex-column flex-md-row bg-dark ">
 
-  <!--icon-->
   <a href="#"
      class="btn btn-sm btn-outline-secondary font-weight-bold px-2"
-     >PlanB
+     [routerLink]="['/']" >PlanB
   </a>
 
-  <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
-    <!--sign in & sign up button-->
+  <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex"
+      *ngIf="!isLoggedIn">
+
     <li class="nav-item">
-      <a
+      <a [routerLink]="['login']"
          class="btn btn-sm btn-outline-secondary mr-3"
          role="button">Sign In</a>
     </li>
 
     <li class="nav-item">
-      <a
+      <a [routerLink]="['register']"
          class="btn btn-sm btn-primary"
          role="button">Sign Up</a>
     </li>
@@ -23,13 +23,12 @@
   </ul>
 
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex"
-      >
-    <!--sign out button-->
+      *ngIf="isLoggedIn">
+
     <li class="nav-item">
-      <a
-         class="btn btn-sm btn-outline-secondary">
-         <!--(click)="logout()"-->
-      Sign Out</a>
+      <a [routerLink]="['']"
+         class="btn btn-sm btn-outline-secondary"
+         (click)="logout()">Sign Out</a>
     </li>
 
   </ul>
