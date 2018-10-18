@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -6,6 +8,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
 const register = require("./routes/api/register");
+const subjects = require("./routes/api/subject");
 const checkIfAuthenticated = require("./middleware/checkIfAuthenticated").checkIfAuthenticated;
 
 const app = express();
@@ -28,6 +31,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // ROUTES
 app.get('/api/users', checkIfAuthenticated, register.users);
+app.get('/api/subjects/:studentId', subjects.subjects);
+app.get('/api/subject/:subjectId', subjects.subject);
+app.get('/api/subject-count/:studentId', subjects.selectSubjectCount);
+app.get('/api/sections/:subjectId', checkIfAuthenticated, subjects.sections);
+app.get('/api/timetable/:studentId', subjects.timetable);
+app.put('/api/timetable/', subjects.updateTimetableSections);
+app.delete('/api/timetable/:subjectId', subjects.deleteTimetableSections);
+
 app.post('/api/user', register.user);
 app.post('/api/register', register.register);
 app.get('/api/confirmation/:token', register.confirm);
