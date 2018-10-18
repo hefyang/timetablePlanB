@@ -1,7 +1,11 @@
 <div class="card mx-auto m-5" style="width: 320px">
   <h5 class="card-header">SIGN IN</h5>
   <div class="card-body">
-    <form>
+    <div class="alert alert-warning"
+         role="alert"
+         *ngIf="message">{{message}}
+    </div>
+    <form [formGroup]="form">
 
       <div class="form-group">
         <label for="studentId"
@@ -9,8 +13,15 @@
         <input type="text"
                id="studentId"
                name="studentId"
-               placeholder="Student ID">
-        <small class="form-text text-danger">
+               placeholder="Student ID"
+               class="form-control"
+               formControlName="studentId"
+               autofocus>
+        <small class="form-text text-danger"
+               [hidden]="
+             !form.hasError('required', ['studentId']) ||
+             !(form.get('studentId').dirty && form.get('studentId').touched) &&
+             !clicked">
           This field is required.
         </small>
       </div>
@@ -22,14 +33,20 @@
                id="password"
                name="password"
                placeholder="Password"
-               class="form-control">
-        <small class="form-text text-danger"">
+               class="form-control"
+               formControlName="password">
+        <small class="form-text text-danger"
+               [hidden]="
+             !form.hasError('required', ['password']) ||
+             !(form.get('password').dirty && form.get('password').touched) &&
+             !clicked">
           This field is required.
         </small>
       </div>
 
       <button type="submit"
-              class="btn btn-primary btn-block mt-4">Sign In
+              class="btn btn-primary btn-block mt-4"
+              (click)="login()">Sign In
       </button>
     </form>
   </div>
