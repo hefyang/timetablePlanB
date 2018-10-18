@@ -10,6 +10,7 @@ import { TimetableComponent } from './timetable/timetable.component';
 import { DescriptionComponent } from './description/description.component';
 import { SectionSelectorComponent } from './section-selector/section-selector.component';
 import { CloseBtnComponent } from './close-btn/close-btn.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { CloseBtnComponent } from './close-btn/close-btn.component';
     TimetableComponent,
     DescriptionComponent,
     SectionSelectorComponent,
-    CloseBtnComponent
+    CloseBtnComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule
