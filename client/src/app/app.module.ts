@@ -8,6 +8,7 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { SubjectsListComponent } from './subjects-list/subjects-list.component';
 import { TimetableComponent } from './timetable/timetable.component';
 import { DescriptionComponent } from './description/description.component';
+import { SectionSelectorComponent } from './section-selector/section-selector.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { DescriptionComponent } from './description/description.component';
     NavBarComponent,
     SubjectsListComponent,
     TimetableComponent,
-    DescriptionComponent
+    DescriptionComponent,
+    SectionSelectorComponent
   ],
   imports: [
     BrowserModule
