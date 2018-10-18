@@ -11,6 +11,7 @@ import { DescriptionComponent } from './description/description.component';
 import { SectionSelectorComponent } from './section-selector/section-selector.component';
 import { CloseBtnComponent } from './close-btn/close-btn.component';
 import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { LoginComponent } from './login/login.component';
     DescriptionComponent,
     SectionSelectorComponent,
     CloseBtnComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule

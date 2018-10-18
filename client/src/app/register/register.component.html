@@ -1,0 +1,81 @@
+<div class="card mx-auto m-5" style="width: 320px">
+  <h5 class="card-header">SIGN UP</h5>
+
+  <div class="card-body">
+    <div class="alert alert-success" role="alert">
+      <small>Confirmation email sent, check your email to confirm.</small>
+    </div>
+  </div>
+
+  <div class="card-body">
+
+    <form>
+
+      <div class="form-group">
+        <label for="studentId" class="sr-only">Student ID</label>
+        <input type="text"
+               id="studentId"
+               class="form-control"
+               name="studentId"
+               placeholder="Student ID">
+        <!--(keyup)="onChange()"-->
+        <small class="form-text text-danger">
+          Your ID should have 8 digits.
+        </small>
+        <small class="form-text text-danger">
+          Your ID has already used.
+        </small>
+        <small class="form-text text-danger">
+          This field is required.
+        </small>
+      </div>
+
+      <div class="form-group">
+        <input type="email"
+               id="email"
+               class="form-control"
+               name="email"
+               placeholder="Student email">
+        <small class="form-text text-danger">
+          The email address you entered is invalid.
+        </small>
+        <small class="form-text text-danger">
+          This field is required.
+        </small>
+      </div>
+
+      <div>
+        <div class="form-group">
+          <label for="password" class="sr-only">Password</label>
+          <input type="password"
+                 id="password"
+                 class="form-control"
+                 name="password"
+                 placeholder="Password">
+          <small class="form-text text-danger">
+            The password should contain 8 characters.
+          </small>
+          <small class="form-text text-danger">
+            This field is required.
+          </small>
+        </div>
+        <div class="form-group">
+          <label for="confirmPW" class="sr-only">Confirm Password</label>
+          <input type="password"
+                 id="confirmPW"
+                 class="form-control"
+                 name="confirmPW"
+                 placeholder="Confirm password">
+          <small class="form-text text-danger">
+            The password you entered is not identical.
+          </small>
+          <small class="form-text text-danger"">
+            This field is required.
+          </small>
+        </div>
+      </div>
+
+      <input type="submit" class="btn btn-primary btn-block" value="Sign Up">
+    </form>
+  </div>
+</div>
