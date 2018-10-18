@@ -7,6 +7,7 @@ import { FooterComponent } from './footer/footer.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { SubjectsListComponent } from './subjects-list/subjects-list.component';
 import { TimetableComponent } from './timetable/timetable.component';
+import { DescriptionComponent } from './description/description.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { TimetableComponent } from './timetable/timetable.component';
     FooterComponent,
     NavBarComponent,
     SubjectsListComponent,
-    TimetableComponent
+    TimetableComponent,
+    DescriptionComponent
   ],
   imports: [
     BrowserModule
