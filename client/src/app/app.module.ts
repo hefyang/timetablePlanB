@@ -12,6 +12,9 @@ import { SectionSelectorComponent } from './section-selector/section-selector.co
 import { CloseBtnComponent } from './close-btn/close-btn.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {HttpClientModule} from "@angular/common/http";
+import {routing} from "./app.routing";
 
 @NgModule({
   declarations: [
@@ -28,7 +31,11 @@ import { RegisterComponent } from './register/register.component';
     RegisterComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    routing
   ],
   providers: [],
   bootstrap: [AppComponent]
