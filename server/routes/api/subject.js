@@ -21,6 +21,7 @@ exports.restSubjects = async (req, res) => {
 
     res.status(200).json(subjects);
 };
+
 exports.allSubjects = async (req, res) => {
     let subjects = await Subject.findAll();
     res.status(200).json(subjects);
