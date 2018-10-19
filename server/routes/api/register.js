@@ -10,26 +10,19 @@ const RSA_PRIVATE_KEY = fs.readFileSync(path.join(__dirname, '../../server_env/p
 const EMAIL_SECRET = process.env.EMAIL_SECRET;
 const HOST_AND_PORT = process.env.DEVELOPMENT ? 'localhost:4200' : process.env.HOST;
 
-exports.users = (req, res) => {
-    Students.findAll().then(users => {
-        res.json(users)
-    })
-};
-
-exports.user = (req, res) => {
+exports.user = async (req, res) => {
     const studentId = req.body.studentId;
-    Students.findOne({where: {id: studentId}})
-        .then((student) => {
-            if (student) res.json({exist: true});
-            else res.json(null);
-        })
+
+    let student = await Students.findOne({where: {id: studentId}});
+    if (student) res.json({exist: true});
+    else res.json(null);
 };
 
-exports.register = (req, res) => {
+exports.register = async (req, res) => {
     const student = req.body;
-    Students.create(student).then(() => {
-        res.status(200).json({success: true, unconfirmed: true});
-    });
+
+    await Students.create(student);
+    res.status(200).json({success: true, unconfirmed: true});
 
 //    async email
     jwt.sign({
@@ -67,44 +60,37 @@ exports.register = (req, res) => {
 };
 
 exports.confirm = (req, res) => {
-    jwt.verify(
-        req.params.token,
-        EMAIL_SECRET,
+    jwt.verify(req.params.token, EMAIL_SECRET,
         (err, student) => {
             if (err) return next(err);
-            Students.update(
-                {confirmed: true},
-                {where: {id: student.id}});
+            Students.update({confirmed: true}, {where: {id: student.id}});
             res.redirect('/#/login');
         });
 };
 
-exports.login = (req, res) => {
-
+exports.login = async (req, res) => {
     const studentId = req.body.studentId;
     const password = req.body.password;
 
-    Students.findOne({ where: {id: studentId}})
-        .then((student) => {
+    let student = await Students.findOne({ where: {id: studentId}});
 
-            // email confirmation
-            if (student && !student.confirmed) {
-                res.json({unconfirmed: true});
-            } else if (student && bcrypt.compareSync(password, student.hash)) {
+    // email confirmation
+    if (student && !student.confirmed) {
+        res.json({unconfirmed: true});
+    } else if (student && bcrypt.compareSync(password, student.hash)) {
 
-                const jwtBearerToken = jwt.sign({}, RSA_PRIVATE_KEY, {
-                    algorithm: "RS256",
-                    expiresIn: "300",
-                    subject: studentId
-                });
-
-                res.status(200).json({
-                    studentId: student.id,
-                    idToken: jwtBearerToken,
-                    expiresIn: 120
-                });
-            } else {
-                res.json({unauthorized: true});
-            }
+        const jwtBearerToken = jwt.sign({}, RSA_PRIVATE_KEY, {
+            algorithm: "RS256",
+            expiresIn: "300",
+            subject: studentId
         });
+
+        res.status(200).json({
+            studentId: student.id,
+            idToken: jwtBearerToken,
+            expiresIn: 120
+        });
+    } else {
+        res.json({unauthorized: true});
+    }
 };

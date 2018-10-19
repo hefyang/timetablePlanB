@@ -49,10 +49,4 @@ const Students = sequelize.define('student', {
     }
 });
 
-// force: true will drop the table if it already exists
-// Students.sync({force: true})
-//     .then(() => {
-//         console.log('Students have been established. ');
-//     });
-
 module.exports = Students;
