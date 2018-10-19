@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Section} from "../_models/section";
 import {TimetableService} from "../_services/timetable.service";
 import {NavigationEnd, Router} from "@angular/router";
+import {AuthService} from "../_services/auth.service";
 
 @Component({
   selector: 'app-timetable',
@@ -25,12 +26,13 @@ export class TimetableComponent implements OnInit, OnDestroy {
 
   constructor(
     private timetableService: TimetableService,
+    private authService: AuthService,
     private router: Router) {
 
     // subscribe to the router events - storing the subscription so
     // we can unsubscribe later.
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
-      // If it is a NavigationEnd event re-initalise the component
+      // If it is a NavigationEnd event re-initialise the component
       if (e instanceof NavigationEnd) {
         this.initialiseInvites();
       }
@@ -38,11 +40,15 @@ export class TimetableComponent implements OnInit, OnDestroy {
   }
 
   initialiseInvites() {
-    this.timetableService
-      .initTimetable(Number(localStorage.getItem('student_id')))
-      .subscribe((timetable) => {
-        this.ttSections = timetable;
-      });
+    if (this.authService.isLoggedIn()) {
+      this.timetableService
+        .initTimetable(Number(localStorage.getItem('student_id')))
+        .subscribe((timetable) => {
+          this.ttSections = timetable;
+        });
+    } else {
+      this.ttSections = [];
+    }
 
     this.timetableService.deleteEvent
       .subscribe((sections: Section[]) => {

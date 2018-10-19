@@ -83,14 +83,14 @@ exports.login = async (req, res) => {
         //set timeout information
         const jwtBearerToken = jwt.sign({}, RSA_PRIVATE_KEY, {
             algorithm: "RS256",
-            expiresIn: "300",
+            expiresIn: "1d",
             subject: studentId
         });
 
         res.status(200).json({
             studentId: student.id,
             idToken: jwtBearerToken,
-            expiresIn: 120
+            expiresIn: 1440
         });
     } else {
         res.json({unauthorized: true});

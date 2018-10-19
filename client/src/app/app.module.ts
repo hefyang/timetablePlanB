@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AuthService} from "./_services/auth.service";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {routing} from "./app.routing";
 import {HashLocationStrategy, LocationStrategy} from "@angular/common";
 import { RegisterComponent } from './register/register.component';
@@ -23,6 +23,7 @@ import { SectionFilterPipe } from './_pipes/section-filter.pipe';
 import { DayFilterPipe } from './_pipes/day-filter.pipe';
 import { TimeSortPipe } from './_pipes/time-sort.pipe';
 import {AutofocusModule} from "angular-autofocus-fix";
+import {AuthInterceptorService} from "./_services/auth-interceptor.service";
 
 @NgModule({
   declarations: [
@@ -57,6 +58,11 @@ import {AutofocusModule} from "angular-autofocus-fix";
       provide: LocationStrategy,
       useClass: HashLocationStrategy
     },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

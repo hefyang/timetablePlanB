@@ -30,13 +30,17 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // ROUTES
-app.get('/api/subjects/:studentId', subjects.subjects);
+app.get('/api/subjects/', subjects.allSubjects);
+app.get('/api/subjects/:studentId',checkIfAuthenticated, subjects.restSubjects);
+
 app.get('/api/subject/:subjectId', subjects.subject);
-app.get('/api/subject-count/:studentId', subjects.selectSubjectCount);
+app.get('/api/subject/:studentId/count', checkIfAuthenticated, subjects.selectSubjectCount);
+
 app.get('/api/sections/:subjectId', subjects.sections);
-app.get('/api/timetable/:studentId', checkIfAuthenticated, subjects.timetable);
+
+app.get('/api/timetable/:studentId',checkIfAuthenticated, subjects.timetable);
 app.put('/api/timetable/', subjects.updateTimetableSections);
-app.delete('/api/timetable/:subjectId', subjects.deleteTimetableSections);
+app.delete('/api/timetable/:subjectId',checkIfAuthenticated, subjects.deleteTimetableSections);
 
 app.post('/api/user', register.user);
 app.post('/api/register', register.register);

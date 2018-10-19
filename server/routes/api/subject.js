@@ -2,8 +2,8 @@ const Subject = require('../../models/subject');
 const Section = require('../../models/section');
 const Timetable = require('../../models/timetable');
 
-//get all the  subjectId of the current user enrolment
-exports.subjects = async (req, res) => {
+//get all the subjectId of the current user enrolment
+exports.restSubjects = async (req, res) => {
     const studentId = req.params.studentId;
 
     let subjects = await Subject.findAll();
@@ -19,6 +19,10 @@ exports.subjects = async (req, res) => {
         });
     }
 
+    res.status(200).json(subjects);
+};
+exports.allSubjects = async (req, res) => {
+    let subjects = await Subject.findAll();
     res.status(200).json(subjects);
 };
 

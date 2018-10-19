@@ -39,10 +39,12 @@ export class SubjectsListComponent implements OnInit, OnDestroy {
     // Set default values and re-fetch any data you need.
     this.studentId = Number(localStorage.getItem("student_id")) || null;
 
-    this.timetableService.getSubjectCount(this.studentId)
-      .subscribe(count => {
-        this.subjectCount = count.count;
-      });
+    if (this.authService.isLoggedIn()) {
+      this.timetableService.getSubjectCount(this.studentId)
+        .subscribe(count => {
+          this.subjectCount = count.count;
+        });
+    }
 
     this.timetableService.getSubjects(this.studentId)
       .subscribe((subjects) => {
