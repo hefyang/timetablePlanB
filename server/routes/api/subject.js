@@ -2,6 +2,7 @@ const Subject = require('../../models/subject');
 const Section = require('../../models/section');
 const Timetable = require('../../models/timetable');
 
+//get all the  subjectId of the current user enrolment
 exports.subjects = async (req, res) => {
     const studentId = req.params.studentId;
 
@@ -21,13 +22,15 @@ exports.subjects = async (req, res) => {
     res.status(200).json(subjects);
 };
 
+//find and return the information of one subject according to the subject id.
 exports.subject = async (req, res) => {
     const subjectId = req.params.subjectId;
 
     let subject = await Subject.findOne({where: {id: subjectId}});
     res.status(200).json(subject);
 };
-
+//count the current user's choice of the subject
+//used in the left side menu
 exports.selectSubjectCount = async (req, res) => {
     const studentId = req.params.studentId;
 
@@ -39,6 +42,7 @@ exports.selectSubjectCount = async (req, res) => {
     res.status(200).json({count: c});
 };
 
+//get all information of the section the current user enrolled
 exports.timetable = async (req, res) => {
     const studentId = req.params.studentId;
     let timetableItems = [];
@@ -51,13 +55,14 @@ exports.timetable = async (req, res) => {
     res.status(200).json(timetableItems);
 };
 
+//find all the information of sections  belongs to one subject according to the subjectId
 exports.sections = async (req, res) => {
     const subjectId = req.params.subjectId;
 
     let sections = await Section.findAll({where: {subjectId: subjectId}});
     res.status(200).json(sections);
 };
-
+//add or update one more more (different types) of sections to the current user's enrolment
 exports.updateTimetableSections = async (req, res) => {
     const timetableItems = req.body;
     const updateSubjectId = timetableItems[0].subjectId;
@@ -73,7 +78,7 @@ exports.updateTimetableSections = async (req, res) => {
         res.status(200).json({added: true});
     }
 };
-
+// delete one subject from the current user's enrolment
 exports.deleteTimetableSections = async (req, res) => {
     const delSubjectId = req.params.subjectId;
 

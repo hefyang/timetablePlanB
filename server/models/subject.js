@@ -29,7 +29,7 @@ const Subjects = sequelize.define('subject', {
 }, {
     timestamps: false
 });
-
+//set the relationship between section table and subject table.
 Subjects.hasMany(Section);
 
 module.exports = Subjects;

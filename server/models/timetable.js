@@ -3,6 +3,7 @@ const sequelize = require('./db');
 const Student = require('./student');
 const Section = require('./section');
 
+// Define the schema of subjects table
 const Timetable = sequelize.define('timetable', {
     // id: {
     //     type: Sequelize.NUMERIC,
@@ -21,7 +22,7 @@ const Timetable = sequelize.define('timetable', {
     timestamps: false
 });
 
-
+//set the relationship between section table and timetable table.
 Section.belongsToMany(Student, {through: Timetable});
 
 module.exports = Timetable;

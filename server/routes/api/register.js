@@ -10,6 +10,7 @@ const RSA_PRIVATE_KEY = fs.readFileSync(path.join(__dirname, '../../server_env/p
 const EMAIL_SECRET = process.env.EMAIL_SECRET;
 const HOST_AND_PORT = process.env.DEVELOPMENT ? 'localhost:4200' : process.env.HOST;
 
+//get current user information according to the studentId
 exports.user = async (req, res) => {
     const studentId = req.body.studentId;
 
@@ -18,6 +19,7 @@ exports.user = async (req, res) => {
     else res.json(null);
 };
 
+//add the new user to the student table.
 exports.register = async (req, res) => {
     const student = req.body;
 
@@ -58,7 +60,7 @@ exports.register = async (req, res) => {
         });
     });
 };
-
+//email confirm
 exports.confirm = (req, res) => {
     jwt.verify(req.params.token, EMAIL_SECRET,
         (err, student) => {
@@ -67,7 +69,7 @@ exports.confirm = (req, res) => {
             res.redirect('/#/login');
         });
 };
-
+//login checking function
 exports.login = async (req, res) => {
     const studentId = req.body.studentId;
     const password = req.body.password;
@@ -78,7 +80,7 @@ exports.login = async (req, res) => {
     if (student && !student.confirmed) {
         res.json({unconfirmed: true});
     } else if (student && bcrypt.compareSync(password, student.hash)) {
-
+        //set timeout information
         const jwtBearerToken = jwt.sign({}, RSA_PRIVATE_KEY, {
             algorithm: "RS256",
             expiresIn: "300",
