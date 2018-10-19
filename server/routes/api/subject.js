@@ -2,43 +2,41 @@ const Subject = require('../../models/subject');
 const Section = require('../../models/section');
 const Timetable = require('../../models/timetable');
 
-exports.subjects = (req, res) => {
+exports.subjects = async (req, res) => {
     const studentId = req.params.studentId;
-    Subject.findAll().then((subjects) => {
-        Timetable.findAll({where: {studentId: studentId}})
-            .then( its => {
-                if (its.length > 0) {
-                    let subjectIds = [];
-                    its.map(it => {
-                        subjectIds.push(it.subjectId);
-                    });
-                    subjects = subjects.filter((subject) => {
-                        return subjectIds.indexOf(subject.id) === -1;
-                    });
-                }
-                res.status(200).json(subjects);
-            })
 
-    })
-};
+    let subjects = await Subject.findAll();
+    let its = await Timetable.findAll({where: {studentId: studentId}});
 
-exports.subject = (req, res) => {
-    const subjectId = req.params.subjectId;
-    Subject.findOne({where: {id: subjectId}})
-        .then( subject => {
-            res.status(200).json(subject);
+    if (its.length > 0) {
+        let subjectIds = [];
+        its.map(it => {
+            subjectIds.push(it.subjectId);
         });
+        subjects = subjects.filter((subject) => {
+            return subjectIds.indexOf(subject.id) === -1;
+        });
+    }
+
+    res.status(200).json(subjects);
 };
 
-exports.selectSubjectCount = (req, res) => {
+exports.subject = async (req, res) => {
+    const subjectId = req.params.subjectId;
+
+    let subject = await Subject.findOne({where: {id: subjectId}});
+    res.status(200).json(subject);
+};
+
+exports.selectSubjectCount = async (req, res) => {
     const studentId = req.params.studentId;
-    Timetable.count({
+
+    let c = await Timetable.count({
         where: {studentId: studentId},
         distinct: true,
         col: 'subjectId'
-    }).then(c => {
-        res.status(200).json({count: c});
     });
+    res.status(200).json({count: c});
 };
 
 exports.timetable = async (req, res) => {
@@ -53,41 +51,32 @@ exports.timetable = async (req, res) => {
     res.status(200).json(timetableItems);
 };
 
-exports.sections = (req, res) => {
+exports.sections = async (req, res) => {
     const subjectId = req.params.subjectId;
-    Section.findAll({where: {subjectId: subjectId}})
-        .then((sections) => {
-            res.status(200).json(sections);
-        });
+
+    let sections = await Section.findAll({where: {subjectId: subjectId}});
+    res.status(200).json(sections);
 };
 
-exports.updateTimetableSections = (req, res) => {
+exports.updateTimetableSections = async (req, res) => {
     const timetableItems = req.body;
     const updateSubjectId = timetableItems[0].subjectId;
 
-    Timetable.findOne({where: {subjectId: updateSubjectId}})
-        .then( its => {
-            if (!its) {
-                Timetable.bulkCreate(timetableItems)
-                    .then(() => {
-                        res.status(200).json({added: true});
-                    });
-            } else {
-                Timetable.destroy({where: {subjectId: updateSubjectId}})
-                    .then(() => {
-                        Timetable.bulkCreate(timetableItems)
-                            .then(() => {
-                                res.status(200).json({added: true});
-                            });
-                    })
-            }
-        });
+    let its = await Timetable.findOne({where: {subjectId: updateSubjectId}});
+
+    if (!its) {
+        await Timetable.bulkCreate(timetableItems);
+        res.status(200).json({added: true});
+    } else {
+        await Timetable.destroy({where: {subjectId: updateSubjectId}});
+        await Timetable.bulkCreate(timetableItems);
+        res.status(200).json({added: true});
+    }
 };
 
-exports.deleteTimetableSections = (req, res) => {
+exports.deleteTimetableSections = async (req, res) => {
     const delSubjectId = req.params.subjectId;
-    Timetable.destroy({where: {subjectId: delSubjectId}})
-        .then(() => {
-            res.status(200).json({deleted: true });
-        });
+
+    await Timetable.destroy({where: {subjectId: delSubjectId}});
+    res.status(200).json({deleted: true });
 };
