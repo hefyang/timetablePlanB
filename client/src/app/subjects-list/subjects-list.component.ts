@@ -3,6 +3,7 @@ import {Subject} from "../_models/subject";
 import {NavigationEnd, Router} from "@angular/router";
 import {TimetableService} from "../_services/timetable.service";
 import {AuthService} from "../_services/auth.service";
+import {el} from "@angular/platform-browser/testing/src/browser_util";
 
 @Component({
   selector: 'app-subjects-list',
@@ -44,6 +45,8 @@ export class SubjectsListComponent implements OnInit, OnDestroy {
         .subscribe(count => {
           this.subjectCount = count.count;
         });
+    } else {
+      this.subjectCount = 0;
     }
 
     this.timetableService.getSubjects(this.studentId)

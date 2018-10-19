@@ -39,13 +39,13 @@ app.get('/api/subject/:studentId/count', checkIfAuthenticated, subjects.selectSu
 app.get('/api/sections/:subjectId', subjects.sections);
 
 app.get('/api/timetable/:studentId',checkIfAuthenticated, subjects.timetable);
-app.put('/api/timetable/', subjects.updateTimetableSections);
+app.put('/api/timetable/',checkIfAuthenticated, subjects.updateTimetableSections);
 app.delete('/api/timetable/:subjectId',checkIfAuthenticated, subjects.deleteTimetableSections);
 
-app.post('/api/user', register.user);
-app.post('/api/register', register.register);
-app.get('/api/confirmation/:token', register.confirm);
-app.post('/api/login', register.login);
+app.get('/api/user/:studentId', register.user);
+app.get('/api/user/confirmation/:token', register.confirm);
+app.post('/api/user/register', register.register);
+app.post('/api/user/login', register.login);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

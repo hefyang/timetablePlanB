@@ -11,10 +11,10 @@ export class RegistrationService {
   constructor(private http: HttpClient) { }
 
   public validateStudentId(studentId: string): Observable<any> {
-    return this.http.post<{[key:string]: boolean}>(`api/user/`, {studentId: studentId});
+    return this.http.get<{[key:string]: boolean}>(`api/user/${studentId}`);
   }
 
   public register(student: Student) {
-    return this.http.post<{[key:string]: boolean}>('api/register', student)
+    return this.http.post<{[key:string]: boolean}>('api/user/register', student)
   }
 }

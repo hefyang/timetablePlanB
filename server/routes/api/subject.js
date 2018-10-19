@@ -21,6 +21,7 @@ exports.restSubjects = async (req, res) => {
 
     res.status(200).json(subjects);
 };
+
 exports.allSubjects = async (req, res) => {
     let subjects = await Subject.findAll();
     res.status(200).json(subjects);
@@ -46,6 +47,14 @@ exports.selectSubjectCount = async (req, res) => {
     res.status(200).json({count: c});
 };
 
+//find all the information of sections  belongs to one subject according to the subjectId
+exports.sections = async (req, res) => {
+    const subjectId = req.params.subjectId;
+
+    let sections = await Section.findAll({where: {subjectId: subjectId}});
+    res.status(200).json(sections);
+};
+
 //get all information of the section the current user enrolled
 exports.timetable = async (req, res) => {
     const studentId = req.params.studentId;
@@ -57,14 +66,6 @@ exports.timetable = async (req, res) => {
         timetableItems.push(sec);
     }
     res.status(200).json(timetableItems);
-};
-
-//find all the information of sections  belongs to one subject according to the subjectId
-exports.sections = async (req, res) => {
-    const subjectId = req.params.subjectId;
-
-    let sections = await Section.findAll({where: {subjectId: subjectId}});
-    res.status(200).json(sections);
 };
 //add or update one more more (different types) of sections to the current user's enrolment
 exports.updateTimetableSections = async (req, res) => {
