@@ -14,7 +14,7 @@ export class AuthService {
   constructor(private http:HttpClient) { }
 
   login(studentId:number, password:string) {
-    return this.http.post<{[key:string]: any}>('/api/login', {studentId, password})
+    return this.http.post<{[key:string]: any}>('/api/user/login', {studentId, password})
       .do(res => AuthService.setSession(res))
       .shareReplay();
   }

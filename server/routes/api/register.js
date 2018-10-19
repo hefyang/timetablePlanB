@@ -12,7 +12,7 @@ const HOST_AND_PORT = process.env.DEVELOPMENT ? 'localhost:4200' : process.env.H
 
 //get current user information according to the studentId
 exports.user = async (req, res) => {
-    const studentId = req.body.studentId;
+    const studentId = req.params.studentId;
 
     let student = await Students.findOne({where: {id: studentId}});
     if (student) res.json({exist: true});
@@ -33,7 +33,7 @@ exports.register = async (req, res) => {
         algorithm: "HS256",
         expiresIn: "1d"
     }, (err, emailToken) => {
-        const url = `http://${HOST_AND_PORT}/api/confirmation/${emailToken}`;
+        const url = `http://${HOST_AND_PORT}/api/user/confirmation/${emailToken}`;
 
         // Use Gmail account
         const transporter = nodemailer.createTransport({
