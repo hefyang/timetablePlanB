@@ -2,7 +2,13 @@ const Subject = require('../../models/subject');
 const Section = require('../../models/section');
 const Timetable = require('../../models/timetable');
 
-//get all the subjectId of the current user enrolment
+// get all the subjects
+exports.allSubjects = async (req, res) => {
+    let subjects = await Subject.findAll();
+    res.status(200).json(subjects);
+};
+
+// get all the available subjects for current user
 exports.restSubjects = async (req, res) => {
     const studentId = req.params.studentId;
 
@@ -22,11 +28,6 @@ exports.restSubjects = async (req, res) => {
     res.status(200).json(subjects);
 };
 
-exports.allSubjects = async (req, res) => {
-    let subjects = await Subject.findAll();
-    res.status(200).json(subjects);
-};
-
 //find and return the information of one subject according to the subject id.
 exports.subject = async (req, res) => {
     const subjectId = req.params.subjectId;
@@ -34,6 +35,7 @@ exports.subject = async (req, res) => {
     let subject = await Subject.findOne({where: {id: subjectId}});
     res.status(200).json(subject);
 };
+
 //count the current user's choice of the subject
 //used in the left side menu
 exports.selectSubjectCount = async (req, res) => {
@@ -67,7 +69,8 @@ exports.timetable = async (req, res) => {
     }
     res.status(200).json(timetableItems);
 };
-//add or update one more more (different types) of sections to the current user's enrolment
+
+//add or update one more (different types) of sections to the current user's enrolment
 exports.updateTimetableSections = async (req, res) => {
     const timetableItems = req.body;
     const updateSubjectId = timetableItems[0].subjectId;
@@ -83,6 +86,7 @@ exports.updateTimetableSections = async (req, res) => {
         res.status(200).json({added: true});
     }
 };
+
 // delete one subject from the current user's enrolment
 exports.deleteTimetableSections = async (req, res) => {
     const delSubjectId = req.params.subjectId;

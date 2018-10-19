@@ -10,7 +10,7 @@ const RSA_PRIVATE_KEY = fs.readFileSync(path.join(__dirname, '../../server_env/p
 const EMAIL_SECRET = process.env.EMAIL_SECRET;
 const HOST_AND_PORT = process.env.DEVELOPMENT ? 'localhost:4200' : process.env.HOST;
 
-//get current user information according to the studentId
+// check the existence of a studentId entered by users
 exports.user = async (req, res) => {
     const studentId = req.params.studentId;
 
@@ -26,7 +26,8 @@ exports.register = async (req, res) => {
     await Students.create(student);
     res.status(200).json({success: true, unconfirmed: true});
 
-//    async email
+    // Sending confirmation email
+    // first generate a HS256 token and add it to the confirmation URL
     jwt.sign({
         id: student.id
     }, EMAIL_SECRET, {
@@ -35,7 +36,7 @@ exports.register = async (req, res) => {
     }, (err, emailToken) => {
         const url = `http://${HOST_AND_PORT}/api/user/confirmation/${emailToken}`;
 
-        // Use Gmail account
+        // Use Gmail account to sent the confirmation email
         const transporter = nodemailer.createTransport({
             service: 'Gmail',
             auth: {
@@ -60,7 +61,9 @@ exports.register = async (req, res) => {
         });
     });
 };
-//email confirm
+
+// User make a confirmation,
+// and set the confirmed attribute in Student table to true
 exports.confirm = (req, res) => {
     jwt.verify(req.params.token, EMAIL_SECRET,
         (err, student) => {
@@ -69,6 +72,7 @@ exports.confirm = (req, res) => {
             res.redirect('/#/login');
         });
 };
+
 //login checking function
 exports.login = async (req, res) => {
     const studentId = req.body.studentId;
@@ -76,11 +80,11 @@ exports.login = async (req, res) => {
 
     let student = await Students.findOne({ where: {id: studentId}});
 
-    // email confirmation
     if (student && !student.confirmed) {
         res.json({unconfirmed: true});
     } else if (student && bcrypt.compareSync(password, student.hash)) {
-        //set timeout information
+
+        // after user login, a jwtBearerToken will be sent to the client end
         const jwtBearerToken = jwt.sign({}, RSA_PRIVATE_KEY, {
             algorithm: "RS256",
             expiresIn: "1d",
