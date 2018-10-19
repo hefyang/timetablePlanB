@@ -32,6 +32,8 @@ npm install
 
 npm run dev
 
+the http://localhost:5000/api/users/register 
+
 #Dependency of this project
 
 
