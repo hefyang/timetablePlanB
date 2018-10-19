@@ -3,11 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "npm run build & concurrently -k \"npm run serve-api-dev\" \"npm run serve\"",
-    "serve": "ng serve --proxy-config proxy.conf.json",
+    "start": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build",
-    "serve-api": "node ../server/bin/www",
-    "serve-api-dev": "cd ../server && npm run dev-start",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

@@ -51,20 +51,6 @@ exports.timetable = async (req, res) => {
         timetableItems.push(sec);
     }
     res.status(200).json(timetableItems);
-
-    // Timetable.findAll({where: {studentId: studentId}})
-    //     .then((items) => {
-    //         items.map(it => {
-    //             Section.findOne({where: {id: it.sectionId}})
-    //                 .then((sec) => {
-    //                     timetableItems.push(sec);
-    //                 });
-    //         });
-    //     });
-    //
-    // setTimeout(() => {
-    //     res.status(200).json(timetableItems);
-    // }, 300)
 };
 
 exports.sections = (req, res) => {
