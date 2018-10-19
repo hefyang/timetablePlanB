@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import {Section} from "../_models/section";
-
+//pipe, select the section available
 @Pipe({
   name: 'filter'
 })

@@ -1,19 +1,19 @@
 <div class="card mx-auto m-5" style="width: 320px">
   <h5 class="card-header">SIGN UP</h5>
-
+<!--tips given after sign up and confirm email has been sent-->
   <div class="card-body"
        *ngIf="submitted">
     <div class="alert alert-success" role="alert">
       <small>Confirmation email sent, check your email to confirm.</small>
     </div>
   </div>
-
+<!--main register page-->
   <div class="card-body"
        *ngIf="!submitted">
 
     <form [formGroup]="formModel"
           (ngSubmit)="onSubmit()">
-
+<!--student ID text box & existing user ID checking/tips-->
       <div class="form-group">
         <label for="studentId" class="sr-only">Student ID</label>
         <input type="text"
@@ -44,7 +44,7 @@
           This field is required.
         </small>
       </div>
-
+<!--email text box-->
       <div class="form-group">
         <input type="email"
                id="email"
@@ -66,7 +66,7 @@
           This field is required.
         </small>
       </div>
-
+<!--password text box & password checking/tips-->
       <div formGroupName="passwordsGroup">
         <div class="form-group">
           <label for="password" class="sr-only">Password</label>
@@ -90,6 +90,8 @@
             This field is required.
           </small>
         </div>
+
+        <!--confirm password text box & double check-->
         <div class="form-group">
           <label for="confirmPW" class="sr-only">Confirm Password</label>
           <input type="password"
@@ -113,7 +115,7 @@
           </small>
         </div>
       </div>
-
+<!--new user request submission button-->
       <input type="submit" class="btn btn-primary btn-block" value="Sign Up">
     </form>
   </div>

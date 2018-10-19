@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import {Subject} from "../_models/subject";
-
+// search for one subject
 @Pipe({
   name: 'search'
 })

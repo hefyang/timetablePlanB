@@ -7,6 +7,7 @@ import {TimetableService} from "../_services/timetable.service";
   templateUrl: './description.component.html',
   styleUrls: ['./description.component.css']
 })
+//info page for each subject
 export class DescriptionComponent implements OnInit, OnDestroy {
   subjectId: number;
   subjectTitle: string;

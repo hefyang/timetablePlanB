@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import {Section} from "../_models/section";
-
+// pipe, put section into different groups from mon to fri
 @Pipe({
   name: 'dayFilter'
 })

@@ -8,6 +8,7 @@ import {Router} from "@angular/router";
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+// login model
 export class LoginComponent implements OnInit {
 
   form: FormGroup;
@@ -28,6 +29,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  // login function & password checking
   login() {
     const val = this.form.value;
 

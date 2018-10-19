@@ -1,9 +1,10 @@
 <h5 class="ap-selector">Section Selector
   <app-close-btn></app-close-btn>
 </h5>
-
+<!--this is the page display the sections of one subject on the left hand side menu(after click the add subject button)-->
 <h5>{{subjectId}}</h5>
-
+<!--basic info of one section, item type, day, start time, end time-->
+<!--dismiss the section selected.-->
 <h5 class="px-3">
   <a href="#" class="badge badge-primary w-100 text-right"
      (click)="dismissSection($event, item)"
@@ -19,7 +20,7 @@
       </span>
   </a>
 </h5>
-
+<!--filter the sections have been selected,depends on the section type-->
 <div class="ap-selector-list btn-group-vertical btn-group-sm w-100 mt-3 px-0"
      role="group" #sectionsContainer>
   <button type="button"
@@ -42,7 +43,7 @@
     </span>
   </button>
 </div>
-
+<!--add button or update button to keep the choice of the sections to the database-->
 <div class="w-100 mt-5">
   <button type="button"
           class="ap-add-btn btn btn-sm btn-primary btn-block"
