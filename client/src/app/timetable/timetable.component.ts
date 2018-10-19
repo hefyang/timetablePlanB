@@ -11,8 +11,11 @@ import {AuthService} from "../_services/auth.service";
 })
 export class TimetableComponent implements OnInit, OnDestroy {
 
+  // declare a section array
+  // hold the selected section in timetable
   ttSections: Section[];
 
+  // declare and assign a string array of Days
   DAYS: string[] = [
     "Monday",
     "Tuesday",
@@ -21,7 +24,7 @@ export class TimetableComponent implements OnInit, OnDestroy {
     "Friday"
   ];
 
-  // ... your class variables here
+  // declare a navigation Subscription variable
   navigationSubscription;
 
   constructor(
@@ -39,17 +42,25 @@ export class TimetableComponent implements OnInit, OnDestroy {
     });
   }
 
+  // define the initialising function
   initialiseInvites() {
+
+    // query timetable items data
     if (this.authService.isLoggedIn()) {
+
+      // if user logged in, query the timetable items data
       this.timetableService
         .initTimetable(Number(localStorage.getItem('student_id')))
         .subscribe((timetable) => {
           this.ttSections = timetable;
         });
     } else {
+
+      // if user logged out, set the timetable with an empty array
       this.ttSections = [];
     }
 
+    // delete a subject from the timetable
     this.timetableService.deleteEvent
       .subscribe((sections: Section[]) => {
         this.ttSections = this.ttSections.filter(it => {
@@ -57,6 +68,7 @@ export class TimetableComponent implements OnInit, OnDestroy {
         })
       });
 
+    // create or update sections to timetable
     this.timetableService.updateEvent
       .subscribe((sections: Section[]) => {
         this.ttSections = this.ttSections.filter(it => {
@@ -67,6 +79,7 @@ export class TimetableComponent implements OnInit, OnDestroy {
 
   }
 
+  // define the functionality for edit button
   editSection(subjectId) {
     this.router
       .navigate([{outlets: {sidebar: ['selector', subjectId]}}])
@@ -80,9 +93,11 @@ export class TimetableComponent implements OnInit, OnDestroy {
       });
   }
 
+  // for ngOnInit, Angular lifecycle
   ngOnInit() {
   }
 
+  // for ngOnDestroy, Angular lifecycle
   ngOnDestroy(): void {
     // avoid memory leaks here by cleaning up after ourselves. If we
     // don't then we will continue to run our initialiseInvites()

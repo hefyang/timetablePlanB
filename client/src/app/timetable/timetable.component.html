@@ -3,11 +3,13 @@
   <div class="col-2 px-1"
        *ngFor="let day of DAYS">
     <h6 class="text-center border-bottom border-success pb-2">{{day}}</h6>
-<!--set section into different groups, depends on day, and put them into an order based on start/end time-->
+
+    <!--set section into different groups, depends on day, and put them into an order based on start/end time-->
     <div class="card mb-2"
          *ngFor="let item of ttSections | dayFilter: day | timeSort">
       <div class="card-body p-1 pb-2">
-<!--edit button to change the sections-->
+
+        <!--edit button to change the sections-->
         <button
           type="button"
           class="btn btn-sm btn-block btn-primary text-right"
@@ -15,7 +17,8 @@
           <span class="float-left">{{item.subjectId}}</span>
           <span class="badge badge-light">Edit</span>
         </button>
-<!--section information display-->
+
+        <!--section information display-->
         <p class="card-text mt-2">
           <small class="badge badge-pill badge-light mr-1">
             {{item.type}}

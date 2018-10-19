@@ -6,6 +6,7 @@
          [(ngModel)]="searchText"
          [ngModelOptions]="{standalone: true}" >
 </form>
+
 <!--waring information that the selected subject reach the maximum requirement-->
 <div class="ap-hint bg-light"
      *ngIf="subjectCount > 3">
@@ -14,12 +15,14 @@
     <mark>The number of subjects you enrolled should be thoughtful.</mark>
   </small>
 </div>
+
 <!--the item(subject) in the left menu-->
 <div id="subject-list" class="ap-links list-group-flush list-group">
   <a class="list-group-item list-group-item-action flex-column align-items-start"
      [routerLink]="['/description', item.id]"
      *ngFor="let item of subjects | search: searchText">
-<!--basic information of one subject-->
+
+    <!--basic information of one subject-->
     <div class="row">
       <div class="col">
         <h6 class="mb-1">{{item.id}} {{item.title}}</h6>
@@ -27,6 +30,7 @@
           Credit Points: {{item.credit}}
         </small>
       </div>
+
       <!--add button,which lead to section selection, shows if user login-->
       <button
         type="button"

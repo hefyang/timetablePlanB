@@ -1,15 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {FormValidationService} from "../_validators/form-validation.service";
 import {RegistrationService} from "../_services/registration.service";
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
 
   submitted: boolean;
   clicked: boolean;
@@ -18,12 +17,12 @@ export class RegisterComponent implements OnInit {
   constructor(
     private fb:FormBuilder,
     private validator:FormValidationService,
-    private registration:RegistrationService,
-    private router:Router) {
+    private registration:RegistrationService) {
 
     this.submitted = false;
     this.clicked = false;
 
+    // set up the form model for the registration form
     this.formModel = fb.group({
       'studentId': ['', Validators.compose([
         Validators.required,
@@ -45,6 +44,7 @@ export class RegisterComponent implements OnInit {
     });
   }
 
+  // define the function for submit button
   onSubmit() {
     this.clicked = true;
 
@@ -53,23 +53,9 @@ export class RegisterComponent implements OnInit {
         id:       this.formModel.get('studentId').value,
         email:    this.formModel.get('email').value,
         password: this.formModel.get('passwordsGroup.password').value
-      }).subscribe(res => {
+      }).subscribe(() => {
         this.submitted = true;
-        // this.router.navigate(['login'])
-        //   .then(() => {
-        //     console.log(res);
-        //   });
       });
     }
   }
-
-  onChange() {
-    this.formModel.get('email').setValue(
-      this.formModel.get('studentId').value + '@student.uts.edu.au'
-    )
-  }
-
-  ngOnInit() {
-  }
-
 }

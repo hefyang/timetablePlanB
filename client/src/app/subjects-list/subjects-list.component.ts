@@ -3,7 +3,6 @@ import {Subject} from "../_models/subject";
 import {NavigationEnd, Router} from "@angular/router";
 import {TimetableService} from "../_services/timetable.service";
 import {AuthService} from "../_services/auth.service";
-import {el} from "@angular/platform-browser/testing/src/browser_util";
 
 @Component({
   selector: 'app-subjects-list',
@@ -18,7 +17,7 @@ export class SubjectsListComponent implements OnInit, OnDestroy {
   studentId: number;
   subjectCount: number;
 
-  // ... your class variables here
+  // declare a navigation Subscription variable
   navigationSubscription;
 
   constructor(
@@ -29,26 +28,30 @@ export class SubjectsListComponent implements OnInit, OnDestroy {
     // subscribe to the router events - storing the subscription so
     // we can unsubscribe later.
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
-      // If it is a NavigationEnd event re-initalise the component
+      // If it is a NavigationEnd event re-initialise the component
       if (e instanceof NavigationEnd) {
         this.initialiseInvites();
       }
     });
   }
 
+  // define the initialising function
   initialiseInvites() {
     // Set default values and re-fetch any data you need.
     this.studentId = Number(localStorage.getItem("student_id")) || null;
 
+    // query the number of subjects user enrolled
     if (this.authService.isLoggedIn()) {
       this.timetableService.getSubjectCount(this.studentId)
         .subscribe(count => {
           this.subjectCount = count.count;
         });
     } else {
+      // if no user logged in, set the number of subject enrolled 0
       this.subjectCount = 0;
     }
 
+    // query all the available subjects
     this.timetableService.getSubjects(this.studentId)
       .subscribe((subjects) => {
         this.subjects = subjects;
@@ -57,6 +60,7 @@ export class SubjectsListComponent implements OnInit, OnDestroy {
     this.isLoggedIn = this.authService.isLoggedIn();
   }
 
+  // define the function for enroll (plus) button
   enroll(event, id) {
     event.stopPropagation();
     event.preventDefault();
@@ -65,6 +69,11 @@ export class SubjectsListComponent implements OnInit, OnDestroy {
       .then(() => { });
   }
 
+  // for ngOnInit, Angular lifecycle
+  ngOnInit(): void {
+  }
+
+  // for ngOnDestroy, Angular lifecycle
   ngOnDestroy(): void {
     // avoid memory leaks here by cleaning up after ourselves. If we
     // don't then we will continue to run our initialiseInvites()
@@ -73,8 +82,4 @@ export class SubjectsListComponent implements OnInit, OnDestroy {
       this.navigationSubscription.unsubscribe();
     }
   }
-
-  ngOnInit(): void {
-  }
-
 }

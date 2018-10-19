@@ -1,11 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import {Subject} from "../_models/subject";
-// search for one subject
+
 @Pipe({
   name: 'search'
 })
 export class SearchPipe implements PipeTransform {
 
+  // search for one subject based on the entered characters in search box
   transform(items: Subject[], searchText: string): any {
     if(!items) return [];
     if(!searchText) return items;

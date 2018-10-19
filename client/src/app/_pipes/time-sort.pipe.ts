@@ -1,17 +1,19 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import * as moment from "moment";
 import {Section} from "../_models/section";
-//pipe, put sections into an timeline order
+
 @Pipe({
   name: 'timeSort'
 })
 export class TimeSortPipe implements PipeTransform {
 
+  //sort sections into an timeline order
   transform(items: Section[]): any {
     if (!items) return [];
     return items.sort(this.compareFn);
   }
-//mon.js,Time judgment
+
+  //mon.js,Time judgment
   private compareFn(it1: Section, it2: Section) {
     let it1Start = moment(it1.startTime, "HH:mm");
     let it2Start = moment(it2.startTime, "HH:mm");

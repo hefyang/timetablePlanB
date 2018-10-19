@@ -6,7 +6,8 @@
          *ngIf="message">{{message}}
     </div>
     <form [formGroup]="form">
-<!--student ID text filed-->
+
+      <!--student ID text filed-->
       <div class="form-group">
         <label for="studentId"
                class="sr-only">Student ID</label>
@@ -25,6 +26,7 @@
           This field is required.
         </small>
       </div>
+
       <!--password text filed-->
       <div class="form-group">
         <label for="password"
@@ -43,11 +45,13 @@
           This field is required.
         </small>
       </div>
-<!--submit button-->
+
+      <!--submit button-->
       <button type="submit"
               class="btn btn-primary btn-block mt-4"
               (click)="login()">Sign In
       </button>
+
     </form>
   </div>
 </div>

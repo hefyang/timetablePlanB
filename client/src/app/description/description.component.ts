@@ -7,13 +7,13 @@ import {TimetableService} from "../_services/timetable.service";
   templateUrl: './description.component.html',
   styleUrls: ['./description.component.css']
 })
-//info page for each subject
+
 export class DescriptionComponent implements OnInit, OnDestroy {
   subjectId: number;
   subjectTitle: string;
   subjectInfo: string;
 
-  // ... your class variables here
+  // declare a navigation Subscription variable
   navigationSubscription;
 
   constructor(
@@ -32,6 +32,7 @@ export class DescriptionComponent implements OnInit, OnDestroy {
 
   }
 
+  // define the initialising function
   initialiseInvites() {
 
     this.subjectId = this.route.snapshot.params['id'];
@@ -44,11 +45,12 @@ export class DescriptionComponent implements OnInit, OnDestroy {
       });
   }
 
-
+  // for ngOnInit, Angular lifecycle
   ngOnInit(): void {
 
   }
 
+  // for ngOnDestroy, Angular lifecycle
   ngOnDestroy(): void {
     // avoid memory leaks here by cleaning up after ourselves. If we
     // don't then we will continue to run our initialiseInvites()

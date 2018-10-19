@@ -1,10 +1,12 @@
 <nav class="navbar navbar-expand navbar-dark flex-column flex-md-row bg-dark ">
-<!--logo to main page-->
+
+  <!--logo to main page-->
   <a href="#"
      class="btn btn-sm btn-outline-secondary font-weight-bold px-2"
      [routerLink]="['/']" >PlanB
   </a>
-<!--before login, sign up and sign up button-->
+
+  <!--before login, sign up and sign up button-->
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex"
       *ngIf="!isLoggedIn">
 
@@ -21,7 +23,8 @@
     </li>
 
   </ul>
-<!--sign out button after login-->
+
+  <!--sign out button after login-->
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex"
       *ngIf="isLoggedIn">
 

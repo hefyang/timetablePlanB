@@ -8,6 +8,9 @@ import {SectionSelectorComponent} from "./section-selector/section-selector.comp
 import {LoginGuard} from "./_guards/login.guard";
 import {LogoutGuard} from "./_guards/logout.guard";
 
+// Set up the routes in the single page application,
+// the content has been divide into to outlets: primary and sidebar
+// LoginGuard and LogoutGuard are applied on some routes to avoid unauthenticated access
 const routes: Routes = [
   {path: '', redirectTo: 'timetable', pathMatch: 'full'},
   {path: '', component: SubjectsListComponent, outlet: 'sidebar', runGuardsAndResolvers: 'always'},

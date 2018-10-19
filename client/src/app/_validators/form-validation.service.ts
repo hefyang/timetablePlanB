@@ -12,6 +12,7 @@ export class FormValidationService {
 
   constructor() {}
 
+  // define an asynchronous validator to check whether the entered student ID existed
   asyncStudentIdValidator(registerService: RegistrationService): AsyncValidatorFn {
     return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
       return registerService.validateStudentId(control.value).pipe(
@@ -20,6 +21,7 @@ export class FormValidationService {
     }
   }
 
+  // define a validator to check the whether the input from two password text box is identical
   passwordEqualValidation({value}: FormGroup): {[key: string]: any} {
     const [first, ...rest] = Object.keys(value || {});
     const valid = rest.every(v => value[v] === value[first]);

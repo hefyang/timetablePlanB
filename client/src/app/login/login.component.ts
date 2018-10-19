@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../_services/auth.service";
 import {Router} from "@angular/router";
@@ -8,8 +8,8 @@ import {Router} from "@angular/router";
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-// login model
-export class LoginComponent implements OnInit {
+
+export class LoginComponent {
 
   form: FormGroup;
   confirmed: {[key:string]: string};
@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
 
     this.clicked = false;
 
+    // set up the login form model
     this.form = this.fb.group({
       studentId: ['', Validators.required],
       password: ['', Validators.required]
@@ -47,14 +48,9 @@ export class LoginComponent implements OnInit {
             } else {
               if (res.unauthorized) this.message = "The user name or password you entered is incorrect.";
               if (res.unconfirmed) this.message = "Please confirm your email";
-              // console.log("Please confirm your email");
             }
           }
         )
     }
   }
-
-  ngOnInit() {
-  }
-
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
 import {Section} from "../_models/section";
 import {TimetableService} from "../_services/timetable.service";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -11,18 +11,18 @@ import {extendMoment} from "moment-range";
   templateUrl: './section-selector.component.html',
   styleUrls: ['./section-selector.component.css']
 })
-export class SectionSelectorComponent implements OnInit {
+export class SectionSelectorComponent {
 
   subjectId: number;
   sections: Section[];
   selected: Section[];
   selectedTypes: string[];
-  studentId: number;    // dev
+  studentId: number;
   filter: string;
   editing: boolean;
-  clash: boolean;     // dev
+  clash: boolean;
 
-  momentRange = extendMoment(moment);   // dev
+  momentRange = extendMoment(moment);
 
   constructor(
     private timetableService: TimetableService,
@@ -50,9 +50,9 @@ export class SectionSelectorComponent implements OnInit {
   private initSections() {
 
     this.subjectId = this.route.snapshot.params['id'];
-    this.studentId = Number(localStorage.getItem('student_id'));    // dev
+    this.studentId = Number(localStorage.getItem('student_id'));
 
-    if (!this.studentId) {                                        // dev
+    if (!this.studentId) {
       this.timetableService.getSections(this.subjectId)
         .subscribe(sections => {
           this.sections = sections;
@@ -93,6 +93,7 @@ export class SectionSelectorComponent implements OnInit {
 
   }
 
+  // define the function for section button to select section
   selectSection(section) {
     if (section.clash) return;
     this.selected.push(section);
@@ -100,6 +101,7 @@ export class SectionSelectorComponent implements OnInit {
     this.filter = this.selectedTypes.join(',');
   }
 
+  // define the function for section button to dismiss section
   dismissSection(event, section) {
     event.preventDefault();
     this.selected
@@ -111,6 +113,7 @@ export class SectionSelectorComponent implements OnInit {
     this.filter = this.selectedTypes.join(',');
   }
 
+  // define the function for add/update button
   updateSections() {
     let items: TimetableItem[] = [];
     this.selected.map((section) => {
@@ -131,6 +134,7 @@ export class SectionSelectorComponent implements OnInit {
       });
   }
 
+  // define the function for delete button
   deleteSections() {
     let delSubjectId = this.selected[0].subjectId;
     this.timetableService.deleteSections(delSubjectId)
@@ -142,8 +146,4 @@ export class SectionSelectorComponent implements OnInit {
           })
       });
   }
-
-  ngOnInit() {
-  }
-
 }
