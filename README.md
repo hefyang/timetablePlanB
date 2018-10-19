@@ -11,6 +11,10 @@ Students could view some information same as UTS handbook and start to enrol sub
 
 The demo of this project(version week11) runs on AWS server: 54.79.64.214 until 30 Nov 2018.
 
+In order to deploy this app on server, the minimum requirement of the port numbers are 22,25,80,433,465 (SSH,SMTP,HTTP,HTTPS,SMTPS)
+
+According to the ip address in the email confirmation function, the email sent to the user should includes the domain name / ip address  / ipv6 address. Therefore, some adaptations are nessessary.
+
 #How to start
 
 ####1. install the dependency package needed in this project.
@@ -32,7 +36,7 @@ npm install
 
 npm run dev
 
-the http://localhost:5000/api/users/register 
+the application would run at http://localhost:4200/ 
 
 #Dependency of this project
 
@@ -54,17 +58,18 @@ Bcrypt:
 
 npm install -g bcrypt
 
-Sqlite3:
+Concurrently:
 
-npm install -g sqlite3
+npm install -g concurrently
 
 Nodemon:
 
 npm install -g nodemon
 
-Concurrently:
+Sqlite3:
 
-npm install -g concurrently
+npm install -g sqlite3
+
 
 public.key & private.key:
  
