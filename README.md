@@ -7,7 +7,7 @@ Hefei Yang - 12630087
 
 This project was designed to help IT students to plan their timetables.
 
-Students could view some information same as UTS handbook and start to enrol subjects. After that, select the section and add them to the database make a timetalbe.
+Students could view some information same as UTS handbook and start to enrol subjects. After that, select the section and add them to the database make a timetable.
 
 The demo of this project(version week11) runs on AWS server: 54.79.64.214 until 30 Nov 2018.
 

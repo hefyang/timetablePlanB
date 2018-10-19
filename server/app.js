@@ -30,18 +30,23 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // ROUTES
+// route for multiple subjects
 app.get('/api/subjects/', subjects.allSubjects);
 app.get('/api/subjects/:studentId',checkIfAuthenticated, subjects.restSubjects);
 
+// route for single subject
 app.get('/api/subject/:subjectId', subjects.subject);
 app.get('/api/subject/:studentId/count', checkIfAuthenticated, subjects.selectSubjectCount);
 
+// route for multiple sections
 app.get('/api/sections/:subjectId', subjects.sections);
 
+// route for editing timetable items
 app.get('/api/timetable/:studentId',checkIfAuthenticated, subjects.timetable);
 app.put('/api/timetable/',checkIfAuthenticated, subjects.updateTimetableSections);
 app.delete('/api/timetable/:subjectId',checkIfAuthenticated, subjects.deleteTimetableSections);
 
+// route for registration and login
 app.get('/api/user/:studentId', register.user);
 app.get('/api/user/confirmation/:token', register.confirm);
 app.post('/api/user/register', register.register);
