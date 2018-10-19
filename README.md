@@ -1,9 +1,21 @@
 # TimeTablePlan-B
 AIP Plan B project
+
 Contributors:
+
 Qijun Yang - 12790794
+
 Hefei Yang - 12630087
 
+##TEST ACCOUNT
+
+test account: 12345678
+
+test password: 1q2w3e4r
+
+new user password requirement: at least 8 characters
+
+##Introduction
 
 This project was designed to help IT students to plan their timetables.
 
@@ -15,7 +27,7 @@ In order to deploy this app on server, the minimum requirement of the port numbe
 
 According to the ip address in the email confirmation function, the email sent to the user should includes the domain name / ip address  / ipv6 address. Therefore, some adaptations are nessessary.
 
-#How to start
+##How to start
 
 ####1. install the dependency package needed in this project.
 
@@ -38,7 +50,7 @@ npm run dev
 
 the application would run at http://localhost:4200/ 
 
-#Dependency of this project
+##Dependency of this project
 
 
 If there is a dependency or deploy issue, the following solutions should be considered carefully.
